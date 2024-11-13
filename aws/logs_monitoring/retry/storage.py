@@ -38,7 +38,7 @@ class Storage(object):
         serialized_data = self._serialize(data)
         try:
             self.s3_client.put_object(
-                Bucket=self.bucket_name, Key=key, Body=serialized_data
+                Bucket=self.bucket_name, Key=key, Body=serialized_data, ServerSideEncryption='aws:kms'
             )
         except ClientError:
             logger.error(f"Failed to store retry data for prefix {prefix}")
